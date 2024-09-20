@@ -25,6 +25,9 @@ class HugCounter(toga.App):
         self.set_button = toga.Button("Set Number", on_press=self.set_number_from_input, style=Pack(padding=5))
         self.main_box.add(self.set_button)
 
+        self.set_button = toga.Button("Clear", on_press=self.number_clear, style=Pack(padding=5))
+        self.main_box.add(self.set_button)
+
         self.load_counter()
 
         self.main_window = toga.MainWindow(title=self.formal_name)
@@ -44,6 +47,13 @@ class HugCounter(toga.App):
         try:
             new_value = int(self.counter_input.value)
             self.counter_input.value = str(new_value)
+            self.save_counter()
+        except ValueError:
+            self.counter_input.value = "Invalid Input"
+
+    def number_clear(self, widget):
+        try:
+            self.counter_input.value = str(0)
             self.save_counter()
         except ValueError:
             self.counter_input.value = "Invalid Input"
