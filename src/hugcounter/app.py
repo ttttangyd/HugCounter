@@ -22,6 +22,9 @@ class HugCounter(toga.App):
         self.increment_button = toga.Button("Increment", on_press=self.increment_counter, style=Pack(padding=5))
         self.main_box.add(self.increment_button)
 
+        self.increment_button = toga.Button("Increment by 10", on_press=self.increment_counter_10, style=Pack(padding=5))
+        self.main_box.add(self.increment_button)
+
         self.set_button = toga.Button("Set Number", on_press=self.set_number_from_input, style=Pack(padding=5))
         self.main_box.add(self.set_button)
 
@@ -38,6 +41,15 @@ class HugCounter(toga.App):
         try:
             current_value = int(self.counter_input.value)
             new_value = current_value + 1
+            self.counter_input.value = str(new_value)
+            self.save_counter()
+        except ValueError:
+            self.counter_input.value = "Invalid Input"
+
+    def increment_counter_10(self, widget):
+        try:
+            current_value = int(self.counter_input.value)
+            new_value = current_value + 10
             self.counter_input.value = str(new_value)
             self.save_counter()
         except ValueError:
